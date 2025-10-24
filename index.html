@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <!-- Primary Meta Tags -->
+
+  <meta name="title" content="Reflect, Reason, Rephrase (R³-Detox): An In-Context Learning Approach to Text Detoxification - Guillermo Villate-Castillo, Javier Del Ser, Borja Sanz Urquijo">
+  <meta name="description" content="R³-Detox is a Reflect-Reason-Rephrase framework for text detoxification that integrates explainable reasoning and in-context learning to improve meaning preservation and reduce toxicity.">
+  <meta name="keywords" content="Text Detoxification, LLM, In-Context Learning, Self-Reflection, Reasoning, Explainability, Shapley Values, Toxicity Reduction, Paraphrasing, NLP">
+  <meta name="author" content="Guillermo Villate-Castillo, Javier Del Ser, Borja Sanz Urquijo">
+  <meta name="robots" content="index, follow">
+  <meta name="language" content="English">
+
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <!-- TODO: Replace with your institution or lab name -->
+  <meta property="og:site_name" content="TECNALIA Research & Innovation - eServices">
+  <!-- TODO: Same as paper title above -->
+  <meta property="og:title" content="Reflect, Reason, Rephrase (R³-Detox): An In-Context Learning Approach to Text Detoxification">
+  <!-- TODO: Same as description above -->
+  <meta property="og:description" content="R³-Detox is a Reflect-Reason-Rephrase framework for text detoxification that integrates explainable reasoning and in-context learning to improve meaning preservation and reduce toxicity.">
+  <!-- TODO: Replace with your actual website URL -->
+  <meta property="og:url" content="https://tecnalia.com/research/r3-detox">
+  <meta property="og:image" content="https://tecnalia.com/static/images/r3-detox-preview.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Reflect, Reason, Rephrase (R³-Detox) - Research Preview">
+  <meta property="article:published_time" content="2025-10-01T00:00:00.000Z">
+  <meta property="article:author" content="Guillermo Villate-Castillo">
+  <meta property="article:section" content="Research">
+  <meta property="article:tag" content="Text Detoxification">
+  <meta property="article:tag" content="In-Context Learning">
+  <meta property="article:tag" content="Reasoning">
+  <meta property="article:tag" content="LLM">
+  <meta property="article:tag" content="Explainability">
+
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <!-- TODO: Replace with your lab/institution Twitter handle -->
+  <meta name="twitter:site" content="@tecnalia">
+  <!-- TODO: Replace with first author's Twitter handle -->
+  <meta name="twitter:creator" content="@Mrguiller1993">
+  <meta name="twitter:title" content="Reflect, Reason, Rephrase (R³-Detox): An In-Context Learning Approach to Text Detoxification">
+  <meta name="twitter:description" content="R³-Detox is a Reflect-Reason-Rephrase framework for text detoxification that integrates explainable reasoning and in-context learning to improve meaning preservation and reduce toxicity.">
+  <!-- TODO:Generate an actual image  -->
+  <meta name="twitter:image" content="https://tecnalia.com/static/images/r3-detox-preview.png">
+  <meta name="twitter:image:alt" content="Reflect, Reason, Rephrase (R³-Detox) - Research Preview">
+
+  <!-- Academic/Research Specific -->
+  <meta name="citation_title" content="Reflect, Reason, Rephrase (R³-Detox): An In-Context Learning Approach to Text Detoxification">
+  <meta name="citation_author" content="Villate-Castillo, Guillermo">
+  <meta name="citation_author" content="Del Ser, Javier">
+  <meta name="citation_author" content="Sanz Urquijo, Borja">
+  <meta name="citation_publication_date" content="2025">
+  <meta name="citation_conference_title" content="BDCAT">
+  <!-- TODO: Replace with your actual PDF URL -->
+  <meta name="citation_pdf_url" content="https://tecnalia.com/static/pdfs/r3-detox-paper.pdf">
+  
+  <!-- Additional SEO -->
+  <meta name="theme-color" content="#2563eb">
+  <meta name="msapplication-TileColor" content="#2563eb">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://ajax.googleapis.com">
+  <link rel="preconnect" href="https://documentcloud.adobe.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+
+
+  <!-- TODO: Replace with your paper title and authors -->
+  <title>Reflect, Reason, Rephrase (R³-Detox): An In-Context Learning Approach to Text Detoxification - Villate-Castillo, Guillermo | Academic Research</title>
+  
+  <!-- Favicon and App Icons -->
+  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
+  <link rel="apple-touch-icon" href="static/images/favicon.ico">
+  
+  <!-- Critical CSS - Load synchronously -->
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+  <link rel="stylesheet" href="static/css/explorer.css">
+  
+  <!-- Non-critical CSS - Load asynchronously -->
+  <link rel="preload" href="static/css/bulma-carousel.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="static/css/bulma-slider.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="static/css/fontawesome.all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  
+  <!-- Fallback for browsers that don't support preload -->
+  <noscript>
+    <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  </noscript>
+  
+  <!-- Fonts - Optimized loading -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Defer non-critical JavaScript -->
+  <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script defer src="static/js/bulma-carousel.min.js"></script>
+  <script defer src="static/js/bulma-slider.min.js"></script>
+  <!-- Structured Data for Academic Papers -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "headline": "Reflect, Reason, Rephrase (R³-Detox): An In-Context Learning Approach to Text Detoxification",
+    "description": "This paper presents R³-Detox, a novel framework for text detoxification that leverages in-context learning.",
+    "author": [
+      {
+        "@type": "Person",
+        "name": "Guillermo Villate-Castillo",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "TECNALIA Research & Innovation"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Javier Del Ser",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "UPV/EHU"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Borja Sanz Urquijo",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "University of Deusto"
+        }
+      }
+    ],
+    "datePublished": "2025-12-01",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Big Data Computing, Applications and Technologies (BDCAT2025)"
+    },
+    "url": "https://github.com/TheMrguiller/R-3-Detox",
+    <!-- TODO: Generate an actual image -->
+    "image": "https://YOUR_DOMAIN.com/static/images/social_preview.png",
+    "keywords": ["Text Detoxification", "LLM", "In-Context Learning", "Self-Reflection", "Reasoning", "Explainability", "Shapley Values", "Toxicity Reduction", "Paraphrasing", "NLP"],
+  "abstract": "Traditional content moderation, while effective in reducing toxicity through content removal or censoring, can discourage user participation by making them feel restricted or unfairly targeted, especially in nuanced discussions. Text detoxification offers a more constructive alternative by rephrasing offensive language into respectful forms. We propose R³-Detox, a Reflect-Reason-Rephrase framework that structures detoxification into three steps within a single prompt. The model identifies potentially toxic elements guided by Shapley values to reduce fabricated predictions, evaluates overall toxicity, and then revises the text to eliminate toxicity while retaining meaning. We augment three offensive text paraphrasing datasets (ParaDetox, Parallel Detoxification, APPDIA) with explicit detoxification reasoning. Evaluated with in-context learning, R³-Detox outperforms state-of-the-art methods, including instruction following models.",
+    "citation": "BIBTEX_CITATION_HERE",
+    "isAccessibleForFree": true,
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "mainEntity": {
+      "@type": "WebPage",
+      "@id": "https://github.com/TheMrguiller/R-3-Detox"
+    },
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Text Detoxification"
+      },
+      {
+        "@type": "Thing",
+        "name": "Natural Language Processing"
+      }
+    ]
+  }
+  </script>
+  
+  <!-- Website/Organization Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "TECNALIA Research & Innovation",
+    "url": "https://www.tecnalia.com/",
+    "logo": "https://www.tecnalia.com/images/logo.svg",
+    "sameAs": [
+      "https://twitter.com/Mrguiller1993",
+      "https://github.com/TheMrguiller"
+    ]
+  }
+  </script>
+</head>
+<body>
+
+
+  <!-- Scroll to Top Button -->
+  <button class="scroll-to-top" onclick="scrollToTop()" title="Scroll to top" aria-label="Scroll to top">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <!-- More Works Dropdown -->
+  <div class="more-works-container">
+    <button class="more-works-btn" onclick="toggleMoreWorks()" title="View More Works from Our Lab">
+      <i class="fas fa-flask"></i>
+      More Works
+      <i class="fas fa-chevron-down dropdown-arrow"></i>
+    </button>
+    <div class="more-works-dropdown" id="moreWorksDropdown">
+      <div class="dropdown-header">
+        <h4>More Works from Our Lab</h4>
+        <button class="close-btn" onclick="toggleMoreWorks()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="works-list">
+        <a href="https://doi.org/10.1016/j.neucom.2025.130542" class="work-item" target="_blank">
+          <div class="work-info">
+            <h5>A Collaborative Content Moderation Framework for Toxicity Detection based on Multitask Neural Networks and Conformal Estimates of Annotation Disagreement</h5>
+            <p>Proposes a multitask neural-network framework that jointly models toxicity detection and annotation disagreement, and uses conformal uncertainty estimates to improve moderation workflows. </p>
+            <span class="work-venue">Neurocomputing, 2025</span>
+          </div>
+          <i class="fas fa-external-link-alt"></i>
+        </a>
+
+        <a href="https://ceur-ws.org/Vol-3808/paper7.pdf" class="work-item" target="_blank">
+          <div class="work-info">
+            <h5>Mitigating Toxicity in Dialogue Agents through Adversarial Reinforcement Learning</h5>
+            <p>Integrates adversarial reinforcement learning into the training of dialogue agents, achieving a reduction in toxicity levels from 24% to 5% in experimental settings.</p>
+            <span class="work-venue">AEQUITAS 2024: Workshop on Fairness and Bias in AI, co-located with ECAI 2024, Santiago de Compostela, Spain</span>
+          </div>
+          <i class="fas fa-external-link-alt"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <main id="main-content">
+<section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">Reflect, Reason, Rephrase (R³-Detox): An In-Context Learning Approach to Text Detoxification</h1>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                <a href="https://orcid.org/0009-0001-0783-7984" target="_blank">Guillermo Villate-Castillo</a><sup>*</sup>,</span>
+                <span class="author-block">
+                  <a href="https://orcid.org/0000-0002-1260-9775" target="_blank">Javier del Ser</a><sup>*</sup>,</span>
+                  <span class="author-block">
+                    <a href="https://orcid.org/0000-0003-2039-7773" target="_blank">Borja Sanz</a><sup>*</sup>,</span>
+                  </span>
+                  </div>
+
+                  <div class="is-size-5 publication-authors">
+                    <span class="author-block">Tecnalia Research & Innovation<br>Big Data Computing, Applications and Technologies (BDCAT2025)</span>
+                    <span class="eql-cntrb"><small><br><sup>*</sup>Indicates Equal Contribution</small></span>
+                  </div>
+
+                  <div class="column has-text-centered">
+                    <div class="publication-links">
+                         <span class="link-block">
+                        <a href="https://arxiv.org/pdf/<ARXIV PAPER ID>.pdf" target="_blank"
+                        class="external-link button is-normal is-rounded is-dark">
+                        <span class="icon">
+                          <i class="fas fa-file-pdf"></i>
+                        </span>
+                        <span>Paper</span>
+                      </a>
+                    </span>
+                    <span class="link-block">
+                      <a href="https://github.com/TheMrguiller/R-3-Detox" target="_blank"
+                      class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon">
+                        <i class="fab fa-github"></i>
+                      </span>
+                      <span>Code</span>
+                    </a>
+                  </span>
+                  <span class="link-block">
+                      <a href="https://huggingface.co/datasets/TheMrguiller/R3DetoxDataset" target="_blank"
+                      class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon">
+                        <i class="fas fa-database"></i> 
+                      </span>
+                      <span>Huggingface</span>
+                    </a>
+                  </span>
+                  </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="hero teaser">
+    <div class="container is-max-desktop">
+      <div class="hero-body">
+        <p>
+<img src="static/images/r3_detox_revised_icons_page-0001.jpg" alt="Methodology" class="blend-img-background center-image" style="max-width: 100%; height: auto;" loading="lazy">
+        </p>
+        <br>
+        <p>
+            Methodology implemented by the R³-Detox framework. We first preprocess the datasets (Section (Dataset)) by extracting Shapley values from toxicity detectors. Guided reasoning is then generated using SR models, ensuring no code-switching or data leakage so that the final non-toxic paraphrase is not explicitly present before detoxification. We evaluate models, select the best reasoning for each comment, and validate few-shot examples by comparing them to avant-garde detoxification techniques using ICL.
+          </p>
+      </div>
+    </div>
+  </section>
+<!-- Paper abstract -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <!-- TODO: Replace with your paper abstract -->
+          <p>
+            Traditional content moderation, while effective in reducing toxicity through content removal or censoring, can discourage user participation by making them feel restricted or unfairly targeted, especially in nuanced discussions. Text detoxification offers a more constructive alternative by rephrasing offensive language into respectful forms. We propose R³-Detox, a Reflect-Reason-Rephrase framework that structures detoxification into three steps within a single prompt. The model identifies potentially toxic elements guided by Shapley values to reduce fabricated predictions, evaluates overall toxicity, and then revises the text to eliminate toxicity while retaining meaning. We augment three offensive text paraphrasing datasets (ParaDetox, Parallel Detoxification, APPDIA) with explicit detoxification reasoning. Evaluated with in-context learning, R³-Detox outperforms state-of-the-art methods, including instruction following models.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Interactive Dataset Viewer -->
+<section class="section" id="dataset-viewer" style="background-color: #f9f9f9; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+  <div class="container">
+    <h2 class="title has-text-centered" style="color: #3273dc; font-weight: 700;">Interactive Dataset Viewer</h2>
+    <div id="dataset-container" style="margin-top: 2rem;">
+      <div class="dataset-item" style="margin-bottom: 1.5rem;">
+        <h3 class="subtitle" style="color: #363636; font-weight: 600;">Original Comment</h3>
+        <p id="original-comment" style="background: #fff; padding: 1rem; border-radius: 6px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); font-size: 1.1rem; color: #4a4a4a;">Loading...</p>
+      </div>
+      <div class="dataset-item" style="margin-bottom: 1.5rem;">
+        <h3 class="subtitle" style="color: #363636; font-weight: 600;">Reasoning</h3>
+        <p id="reasoning" style="background: #eff5fb; padding: 1rem; border-radius: 6px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); font-size: 1.1rem; color: #4a4a4a; border-left: 4px solid #3273dc;">Loading...</p>
+      </div>
+      <div class="dataset-item" style="margin-bottom: 1.5rem;">
+        <h3 class="subtitle" style="color: #363636; font-weight: 600;">Non-Toxic Paraphrase</h3>
+        <p id="paraphrase" style="background: #fff; padding: 1rem; border-radius: 6px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); font-size: 1.1rem; color: #4a4a4a;">Loading...</p>
+      </div>
+    </div>
+    <div class="navigation-buttons has-text-centered" style="margin-top: 2rem;">
+      <button id="prev-button" class="button is-info is-light" style="margin-right: 1rem;">Previous</button>
+      <button id="next-button" class="button is-info is-light">Next</button>
+    </div>
+    <div id="example-counter" class="has-text-centered" style="margin-top: 1rem; font-size: 1.2rem; color: #4a4a4a; font-weight: 500;">Loading counter...</div>
+  </div>
+</section>
+
+<script src="static/js/dataset-viewer.js"></script>
+
+<!-- Main Result Table Section -->
+<section class="section" id="main-result-table" style="background-color: #ffffff; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); margin-top: 2rem;">
+  <div class="container">
+    <h2 class="title has-text-centered" style="color: #3273dc; font-weight: 700;">Main Results</h2>
+    <div class="table-container" style="overflow-x: auto; margin-top: 2rem;">
+      <table class="table is-fullwidth is-bordered is-striped" style="border-collapse: collapse; background-color: #f9f9f9;">
+        <thead style="background-color: #3273dc; color: #ffffff;">
+          <tr>
+            <th style="padding: 1rem; text-align: center;">Dataset</th>
+            <th style="padding: 1rem; text-align: center;">Method</th>
+            <th style="padding: 1rem; text-align: center;">BERT-F1 ↑</th>
+            <th style="padding: 1rem; text-align: center;">BLEU ↑</th>
+            <th style="padding: 1rem; text-align: center;">SIM ↑</th>
+            <th style="padding: 1rem; text-align: center;">FL ↑</th>
+            <th style="padding: 1rem; text-align: center;">STA ↑</th>
+            <th style="padding: 1rem; text-align: center;">J ↑</th>
+            <th style="padding: 1rem; text-align: center;">Tox ↓</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom: 1px solid #ddd;">
+            <td rowspan="11" style="padding: 1rem; text-align: center; font-weight: bold;">APPDIA</td>
+            <td style="padding: 1rem; text-align: center;">Original Sentence</td>
+            <td style="padding: 1rem; text-align: center;">-</td>
+            <td style="padding: 1rem; text-align: center;">-</td>
+            <td style="padding: 1rem; text-align: center;">-</td>
+            <td style="padding: 1rem; text-align: center;">-</td>
+            <td style="padding: 1rem; text-align: center;">-</td>
+            <td style="padding: 1rem; text-align: center;">-</td>
+            <td style="padding: 1rem; text-align: center;">0.748</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #ddd;">
+            <td style="padding: 1rem; text-align: center;">Gold-Standard</td>
+            <td style="padding: 1rem; text-align: center;">0.954</td>
+            <td style="padding: 1rem; text-align: center;">0.516</td>
+            <td style="padding: 1rem; text-align: center;">0.784</td>
+            <td style="padding: 1rem; text-align: center;">0.912</td>
+            <td style="padding: 1rem; text-align: center;">0.887</td>
+            <td style="padding: 1rem; text-align: center; background-color: #add8e6;">0.634</td>
+            <td style="padding: 1rem; text-align: center;">0.134</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #ddd;">
+            <td style="padding: 1rem; text-align: center;">BART</td>
+            <td style="padding: 1rem; text-align: center; background-color: #add8e6;">0.972</td>
+            <td style="padding: 1rem; text-align: center; background-color: #add8e6;">0.668</td>
+            <td style="padding: 1rem; text-align: center; background-color: #add8e6;">0.881</td>
+            <td style="padding: 1rem; text-align: center; background-color: #f08080;">0.861</td>
+            <td style="padding: 1rem; text-align: center;">0.808</td>
+            <td style="padding: 1rem; text-align: center;">0.612</td>
+            <td style="padding: 1rem; text-align: center; background-color: #f08080;">0.221</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #ddd;">
+            <td style="padding: 1rem; text-align: center;">DetoxLLM</td>
+            <td style="padding: 1rem; text-align: center;">0.925</td>
+            <td style="padding: 1rem; text-align: center;">0.214</td>
+            <td style="padding: 1rem; text-align: center;">0.654</td>
+            <td style="padding: 1rem; text-align: center;">0.967</td>
+            <td style="padding: 1rem; text-align: center;">0.922</td>
+            <td style="padding: 1rem; text-align: center;">0.583</td>
+            <td style="padding: 1rem; text-align: center;">0.059</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #ddd;">
+            <td style="padding: 1rem; text-align: center;">PseudoParaDetox</td>
+            <td style="padding: 1rem; text-align: center;">0.950</td>
+            <td style="padding: 1rem; text-align: center;">0.442</td>
+            <td style="padding: 1rem; text-align: center;">0.772</td>
+            <td style="padding: 1rem; text-align: center;">0.949</td>
+            <td style="padding: 1rem; text-align: center; background-color: #f08080;">0.778</td>
+            <td style="padding: 1rem; text-align: center;">0.570</td>
+            <td style="padding: 1rem; text-align: center;">0.203</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #ddd;">
+            <td style="padding: 1rem; text-align: center;">CAPP*</td>
+            <td style="padding: 1rem; text-align: center;">0.955</td>
+            <td style="padding: 1rem; text-align: center;">0.521</td>
+            <td style="padding: 1rem; text-align: center;">0.808</td>
+            <td style="padding: 1rem; text-align: center;">0.971</td>
+            <td style="padding: 1rem; text-align: center;">0.898</td>
+            <td style="padding: 1rem; text-align: center;">0.704</td>
+            <td style="padding: 1rem; text-align: center;">0.117</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #ddd;">
+            <td style="padding: 1rem; text-align: center;">(R³-Detox) Marco-o1</td>
+            <td style="padding: 1rem; text-align: center;">0.936 &plusmn; 0.002</td>
+            <td style="padding: 1rem; text-align: center;">0.336 &plusmn; 0.013</td>
+            <td style="padding: 1rem; text-align: center;">0.692 &plusmn; 0.012</td>
+            <td style="padding: 1rem; text-align: center;">0.948 &plusmn; 0.007</td>
+            <td style="padding: 1rem; text-align: center;">0.925 &plusmn; 0.009</td>
+            <td style="padding: 1rem; text-align: center;">0.607 &plusmn; 0.01</td>
+            <td style="padding: 1rem; text-align: center;">0.077 &plusmn; 0.01</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #ddd;">
+            <td style="padding: 1rem; text-align: center;">(R³-Detox) Qwen 2.5 7B</td>
+            <td style="padding: 1rem; text-align: center;">0.926 &plusmn; 0.011</td>
+            <td style="padding: 1rem; text-align: center;">0.284 &plusmn; 0.068</td>
+            <td style="padding: 1rem; text-align: center;">0.649 &plusmn; 0.065</td>
+            <td style="padding: 1rem; text-align: center;">0.932 &plusmn; 0.026</td>
+            <td style="padding: 1rem; text-align: center;">0.958 &plusmn; 0.012</td>
+            <td style="padding: 1rem; text-align: center;">0.577 &plusmn; 0.04</td>
+            <td style="padding: 1rem; text-align: center;">0.048 &plusmn; 0.015</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #ddd;">
+            <td style="padding: 1rem; text-align: center;">(R³-Detox) OpenO1</td>
+            <td style="padding: 1rem; text-align: center;">0.934 &plusmn; 0.003</td>
+            <td style="padding: 1rem; text-align: center;">0.324 &plusmn; 0.015</td>
+            <td style="padding: 1rem; text-align: center;">0.686 &plusmn; 0.016</td>
+            <td style="padding: 1rem; text-align: center;">0.963 &plusmn; 0.006</td>
+            <td style="padding: 1rem; text-align: center;">0.948 &plusmn; 0.008</td>
+            <td style="padding: 1rem; text-align: center;">0.627 &plusmn; 0.008</td>
+            <td style="padding: 1rem; text-align: center;">0.055 &plusmn; 0.007</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #ddd;">
+            <td style="padding: 1rem; text-align: center;">(R³-Detox) Llama 3.1 8B</td>
+            <td style="padding: 1rem; text-align: center;">0.930 &plusmn; 0.005</td>
+            <td style="padding: 1rem; text-align: center;">0.326 &plusmn; 0.035</td>
+            <td style="padding: 1rem; text-align: center;">0.653 &plusmn; 0.031</td>
+            <td style="padding: 1rem; text-align: center;">0.945 &plusmn; 0.015</td>
+            <td style="padding: 1rem; text-align: center;">0.959 &plusmn; 0.01</td>
+            <td style="padding: 1rem; text-align: center;">0.593 &plusmn; 0.014</td>
+            <td style="padding: 1rem; text-align: center;">0.053 &plusmn; 0.01</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #ddd;">
+            <td style="padding: 1rem; text-align: center;">(R³-Detox) QwQ Preview</td>
+            <td style="padding: 1rem; text-align: center; background-color: #f08080;">0.909 &plusmn; 0.004</td>
+            <td style="padding: 1rem; text-align: center; background-color: #f08080;">0.183 &plusmn; 0.022</td>
+            <td style="padding: 1rem; text-align: center; background-color: #f08080;">0.529 &plusmn; 0.027</td>
+            <td style="padding: 1rem; text-align: center; background-color: #add8e6;">0.987 &plusmn; 0.002</td>
+            <td style="padding: 1rem; text-align: center; background-color: #add8e6;">0.986 &plusmn; 0.004</td>
+            <td style="padding: 1rem; text-align: center; background-color: #f08080;">0.515 &plusmn; 0.024</td>
+            <td style="padding: 1rem; text-align: center; background-color: #add8e6;">0.020 &plusmn; 0.004</td>
+          </tr>
+          
+          <tr style="border-top: 2px solid #3273dc;">
+            <td rowspan="11" style="vertical-align: middle; text-align: center;">
+                <div style="transform: rotate(-90deg); white-space: nowrap;">ParaDetox</div>
+            </td>
+            <td>Original Sentence</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>0.892</td>
+          </tr>
+          <tr>
+            <td>Gold-Standard</td>
+            <td>0.951</td>
+            <td>0.470</td>
+            <td>0.813</td>
+            <td style="background-color: #f08080;">0.805</td>
+            <td>0.943</td>
+            <td style="background-color: #f08080;">0.617</td>
+            <td>0.0763</td>
+          </tr>
+          <tr>
+            <td>BART</td>
+            <td style="background-color: #add8e6;">0.961</td>
+            <td style="background-color: #add8e6;">0.555</td>
+            <td style="background-color: #add8e6;">0.862</td>
+            <td>0.831</td>
+            <td>0.924</td>
+            <td>0.662</td>
+            <td>0.091</td>
+          </tr>
+          <tr>
+            <td>DetoxLLM</td>
+            <td style="background-color: #f08080;">0.922</td>
+            <td style="background-color: #f08080;">0.203</td>
+            <td>0.680</td>
+            <td>0.967</td>
+            <td>0.951</td>
+            <td>0.625</td>
+            <td>0.033</td>
+          </tr>
+          <tr>
+            <td>PseudoParaDetox</td>
+            <td>0.943</td>
+            <td>0.394</td>
+            <td>0.799</td>
+            <td>0.923</td>
+            <td style="background-color: #f08080;">0.859</td>
+            <td>0.633</td>
+            <td style="background-color: #f08080;">0.117</td>
+          </tr>
+          <tr>
+            <td>CAPP*</td>
+            <td>0.955</td>
+            <td>0.486</td>
+            <td>0.849</td>
+            <td>0.939</td>
+            <td>0.945</td>
+            <td>0.754</td>
+            <td>0.060</td>
+          </tr>
+          <tr>
+            <td>(R³-Detox) Marco-o1</td>
+            <td>0.940 &plusmn; 0.002</td>
+            <td>0.366 &plusmn; 0.012</td>
+            <td>0.771 &plusmn; 0.008</td>
+            <td>0.904 &plusmn; 0.002</td>
+            <td>0.936 &plusmn; 0.006</td>
+            <td>0.652 &plusmn; 0.009</td>
+            <td>0.064 &plusmn; 0.003</td>
+          </tr>
+          <tr>
+            <td>(R³-Detox) Qwen 2.5 7B</td>
+            <td>0.931 &plusmn; 0.011</td>
+            <td>0.320 &plusmn; 0.072</td>
+            <td>0.734 &plusmn; 0.066</td>
+            <td>0.903 &plusmn; 0.033</td>
+            <td>0.969 &plusmn; 0.009</td>
+            <td>0.641 &plusmn; 0.033</td>
+            <td>0.036 &plusmn; 0.012</td>
+          </tr>
+          <tr>
+            <td>(R³-Detox) OpenO1</td>
+            <td>0.938 &plusmn; 0.002</td>
+            <td>0.349 &plusmn; 0.016</td>
+            <td>0.767 &plusmn; 0.014</td>
+            <td>0.931 &plusmn; 0.007</td>
+            <td>0.947 &plusmn; 0.003</td>
+            <td style="background-color: #add8e6;">0.677 &plusmn; 0.009</td>
+            <td>0.054 &plusmn; 0.001</td>
+          </tr>
+          <tr>
+            <td>(R³-Detox) Llama 3.1 8B</td>
+            <td>0.936 &plusmn; 0.005</td>
+            <td>0.358 &plusmn; 0.037</td>
+            <td>0.747 &plusmn; 0.030</td>
+            <td>0.919 &plusmn; 0.020</td>
+            <td>0.967 &plusmn; 0.003</td>
+            <td>0.663 &plusmn; 0.011</td>
+            <td>0.043 &plusmn; 0.005</td>
+          </tr>
+          <tr>
+            <td>(R³-Detox) QwQ Preview</td>
+            <td style="padding: 1rem; text-align: center; background-color: #f08080;">0.921 &plusmn; 0.005</td>
+            <td style="padding: 1rem; text-align: center;">0.247 &plusmn; 0.026</td>
+            <td style="padding: 1rem; text-align: center; background-color: #f08080;">0.663 &plusmn; 0.029</td>
+            <td style="padding: 1rem; text-align: center; background-color: #add8e6;">0.972 &plusmn; 0.006</td>
+            <td style="padding: 1rem; text-align: center; background-color: #add8e6;">0.979 &plusmn; 0.006</td>
+            <td style="padding: 1rem; text-align: center;">0.631 &plusmn; 0.02</td>
+            <td style="padding: 1rem; text-align: center; background-color: #add8e6;">0.025 &plusmn; 0.004</td>
+          </tr>
+
+          <tr style="border-top: 2px solid #3273dc;">
+            <td rowspan="10" style="vertical-align: middle; text-align: center;">
+                <div style="transform: rotate(-90deg); white-space: nowrap;">Parallel</div>
+            </td>
+            <td>Original Sentence</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>0.836</td>
+          </tr>
+          <tr>
+            <td>Gold-Standard</td>
+            <td>0.934</td>
+            <td>0.369</td>
+            <td>0.724</td>
+            <td>0.801</td>
+            <td>0.920</td>
+            <td style="background-color: #f08080;">0.533</td>
+            <td>0.090</td>
+          </tr>
+          <tr>
+            <td>BART</td>
+            <td style="background-color: #add8e6;">0.966</td>
+            <td style="background-color: #add8e6;">0.630</td>
+            <td style="background-color: #add8e6;">0.875</td>
+            <td>0.876</td>
+            <td>0.794</td>
+            <td>0.609</td>
+            <td style="background-color: #f08080;">0.165</td>
+          </tr>
+          <tr>
+            <td>DetoxLLM</td>
+            <td>0.922</td>
+            <td style="background-color: #f08080;">0.203</td>
+            <td>0.680</td>
+            <td>0.967</td>
+            <td>0.951</td>
+            <td>0.625</td>
+            <td>0.033</td>
+          </tr>
+          <tr>
+            <td>PseudoParaDetox</td>
+            <td>0.946</td>
+            <td>0.423</td>
+            <td>0.807</td>
+            <td>0.929</td>
+            <td style="background-color: #f08080;">0.781</td>
+            <td>0.585</td>
+            <td>0.163</td>
+          </tr>
+          <tr>
+            <td>(R³-Detox) Marco-o1</td>
+            <td>0.937 &plusmn; 0.002</td>
+            <td>0.368 &plusmn; 0.014</td>
+            <td>0.756 &plusmn; 0.011</td>
+            <td>0.927 &plusmn; 0.005</td>
+            <td>0.917 &plusmn; 0.005</td>
+            <td>0.643 &plusmn; 0.008</td>
+            <td>0.074 &plusmn; 0.009</td>
+          </tr>
+          <tr>
+            <td>(R³-Detox) Qwen 2.5 7B</td>
+            <td>0.928 &plusmn; 0.011</td>
+            <td>0.315 &plusmn; 0.073</td>
+            <td>0.711 &plusmn; 0.067</td>
+            <td>0.921 &plusmn; 0.028</td>
+            <td>0.955 &plusmn; 0.014</td>
+            <td>0.624 &plusmn; 0.036</td>
+            <td>0.044 &plusmn; 0.014</td>
+          </tr>
+          <tr>
+            <td>(R³-Detox) OpenO1</td>
+            <td>0.934 &plusmn; 0.002</td>
+            <td>0.343 &plusmn; 0.017</td>
+            <td>0.746 &plusmn; 0.015</td>
+            <td>0.953 &plusmn; 0.010</td>
+            <td>0.935 &plusmn; 0.006</td>
+            <td style="background-color: #add8e6;">0.665 &plusmn; 0.009</td>
+            <td>0.061 &plusmn; 0.004</td>
+          </tr>
+          <tr>
+            <td>(R³-Detox) Llama 3.1 8B</td>
+            <td>0.933 &plusmn; 0.005</td>
+            <td>0.359 &plusmn; 0.038</td>
+            <td>0.725 &plusmn; 0.026</td>
+            <td>0.937 &plusmn; 0.021</td>
+            <td>0.950 &plusmn; 0.011</td>
+            <td>0.646 &plusmn; 0.007</td>
+            <td>0.056 &plusmn; 0.007</td>
+          </tr>
+          <tr>
+            <td>(R³-Detox) QwQ Preview</td>
+            <td style="padding: 1rem; text-align: center; background-color: #f08080;">0.916 &plusmn; 0.005</td>
+            <td style="padding: 1rem; text-align: center;">0.236 &plusmn; 0.026</td>
+            <td style="padding: 1rem; text-align: center; background-color: #f08080;">0.627 &plusmn; 0.031</td>
+            <td style="padding: 1rem; text-align: center; background-color: #add8e6;">0.981 &plusmn; 0.003</td>
+            <td style="padding: 1rem; text-align: center; background-color: #add8e6;">0.974 &plusmn; 0.008</td>
+            <td style="padding: 1rem; text-align: center;">0.599 &plusmn; 0.024</td>
+            <td style="padding: 1rem; text-align: center; background-color: #add8e6;">0.028 &plusmn; 0.007</td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- Metric Progression Section -->
+<section class="section" id="metric-progression" style="background-color: #f9f9f9; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); margin-top: 2rem;">
+  <div class="container">
+    <h2 class="title has-text-centered" style="color: #3273dc; font-weight: 700;">Metric Progression Across Datasets</h2>
+    <div class="content" style="margin-top: 1.5rem; font-size: 1.1rem; color: #4a4a4a; line-height: 1.6;">
+<p>The following visualizations illustrate how various performance metrics—BERT-F1, BLEU, SIM, FL, STA, and Tox—change as more demonstrations (examples) are introduced to the models across different datasets. Each image highlights the impact of increasing the number of examples on model performance, revealing distinct trends and variability across different models and datasets. This analysis forms the foundation for understanding effective detoxification strategies.</p>
+
+
+<h3>Variability in Model Scaling</h3>
+
+<p>Model responses to additional examples are highly varied. For instance, models like QwQ Preview demonstrate consistent improvement as more demonstrations are provided. In contrast, other models, such as Llama 3.1 8B and OpenO1, frequently show diminishing returns or even a performance degradation after a certain threshold. This variability underscores the critical need to tailor the number of demonstrations to the specific model and detoxification task for optimal performance.</p>
+
+
+<h3>Evaluation Metrics and Detoxification Effectiveness</h3>
+
+<p>The comparison between our proposed R³-Detox approach and state of the art models highlights a key insight regarding evaluation: metrics assessing content preservation, such as BERT-F1, BLEU, and SIM, can sometimes misrepresent true detoxification effectiveness. For example, models like BART and PseudoParaDetox may achieve high similarity scores, but this often comes at the cost of retaining significant toxic content, resulting in higher toxicity and lower STA (Style Transfer Accuracy) scores. This strongly emphasizes the importance of using detoxification specific metrics like STA, Tox (Toxicity), and J (Jaccard Score), which offer a more accurate evaluation of the model's actual detoxification quality.</p>
+
+
+<h3>R³-Detox's Superior Tradeoff</h3>
+
+<p>R³-Detox and DetoxLLM stand out in detoxification performance by achieving the lowest toxicity and the highest STA scores, which demonstrates the significant value of incorporating an explicit reasoning mechanism into the process. Furthermore, the consistently superior J scores achieved by R³-Detox confirm its robust balance between effective toxicity reduction and crucial content preservation. While some models, like QwQ Preview, achieve the absolute lowest toxicity, they often sacrifice semantic similarity due to over contextualization or over correction. Overall, R³-Detox achieves the best tradeoff between meaning preservation and toxicity reduction, definitively showcasing the effectiveness of its structured reasoning for controlled detoxification.</p>
+    </div>
+    <div class="slider" style="position: relative; overflow: hidden; max-width: 100%; margin-top: 2rem;">
+      <div class="slides" style="display: flex; transition: transform 0.5s ease-in-out;">
+        <img src="static/images/bert_f1_all_page-0001.jpg" alt="BERT-F1 All" style="flex: 0 0 100%; max-width: 100%; height: auto;">
+        <img src="static/images/bleu_all_page-0001.jpg" alt="BLEU All" style="flex: 0 0 100%; max-width: 100%; height: auto;">
+        <img src="static/images/fl_all_page-0001.jpg" alt="FL All" style="flex: 0 0 100%; max-width: 100%; height: auto;">
+        <img src="static/images/sim_all_page-0001.jpg" alt="SIM All" style="flex: 0 0 100%; max-width: 100%; height: auto;">
+        <img src="static/images/sta_all_page-0001.jpg" alt="STA All" style="flex: 0 0 100%; max-width: 100%; height: auto;">
+        <img src="static/images/tox_all_page-0001.jpg" alt="Tox All" style="flex: 0 0 100%; max-width: 100%; height: auto;">
+      </div>
+      <button class="prev" style="position: absolute; top: 50%; left: 10px; transform: translateY(-50%); background-color: #3273dc; color: #ffffff; border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer;">&#10094;</button>
+      <button class="next" style="position: absolute; top: 50%; right: 10px; transform: translateY(-50%); background-color: #3273dc; color: #ffffff; border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer;">&#10095;</button>
+    </div>
+  </div>
+</section>
+
+<!-- Methodology Comparison Section -->
+<section class="section" id="methodology-comparison" style="background-color: #f9f9f9; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); margin-top: 2rem;">
+  <div class="container">
+    <h2 class="title has-text-centered" style="color: #3273dc; font-weight: 700;">Comparison: R³-Detox vs. Base Prompt</h2>
+    <div class="content" style="margin-top: 1.5rem; font-size: 1.1rem; color: #4a4a4a; line-height: 1.6;">
+      <p>
+        Beyond evaluating the improvements of our proposed R³-Detox framework, we compare it to a vanilla prompt introduced by Khondaker et al. (2024), as shown in the following visualizations. For Self-Reflection base models, our guided Chain-of-Thought prompt significantly enhances the initial capabilities of these systems.
+      </p>
+      <p>
+        In the case of instruct models such as Llama 3.1 and Qwen 2.5, the improvements are more moderate. Specifically, for the Llama model, we observe that although the residual toxicity of the paraphrase is slightly higher, exceeding the average toxicity by only 0.02 according to the Tox metric, the similarity score increases substantially compared to the other models. This indicates a slight improvement in meaning preservation at the cost of a minor increase in toxicity.
+      </p>
+      <p>
+        For the Qwen model, our proposed framework achieves better toxicity reduction, with an average decrease of 0.03 in toxicity, while the slight drop in similarity is acceptable given the overall gain in detoxification.
+      </p>
+      <p>
+        This comparison demonstrates the added value of our guided Chain-of-Thought scheme over simply using the vanilla prompt.
+      </p>
+    </div>
+    <div class="slider" style="position: relative; overflow: hidden; max-width: 100%; margin-top: 2rem;">
+      <div class="slides" style="display: flex; transition: transform 0.5s ease-in-out;">
+        <img src="static/images/llma3.1_base_llm.png" alt="Base Llama" style="flex: 0 0 100%; max-width: 100%; height: auto;">
+        <img src="static/images/marcoo1basellm.png" alt="Base Marco01" style="flex: 0 0 100%; max-width: 100%; height: auto;">
+        <img src="static/images/open01basellm.png" alt="Base Open01" style="flex: 0 0 100%; max-width: 100%; height: auto;">
+        <img src="static/images/qwen2.5basellm.png" alt="Base Qwen" style="flex: 0 0 100%; max-width: 100%; height: auto;">
+        <img src="static/images/qwq_previewbasellm.png" alt="Base QwQ" style="flex: 0 0 100%; max-width: 100%; height: auto;">
+      </div>
+      <button class="prev" style="position: absolute; top: 50%; left: 10px; transform: translateY(-50%); background-color: #3273dc; color: #ffffff; border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer;">&#10094;</button>
+      <button class="next" style="position: absolute; top: 50%; right: 10px; transform: translateY(-50%); background-color: #3273dc; color: #ffffff; border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer;">&#10095;</button>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const slides = document.querySelector('#methodology-comparison .slides');
+    const images = document.querySelectorAll('#methodology-comparison .slides img');
+    const prevButton = document.querySelector('#methodology-comparison .prev');
+    const nextButton = document.querySelector('#methodology-comparison .next');
+    let currentIndex = 0;
+
+    function updateSlider() {
+      slides.style.transform = `translateX(-${currentIndex * 100}%)`;
+    }
+
+    prevButton.addEventListener('click', () => {
+      currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
+      updateSlider();
+    });
+
+    nextButton.addEventListener('click', () => {
+      currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
+      updateSlider();
+    });
+  });
+</script>
+
+<!--BibTex citation -->
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <div class="bibtex-header">
+        <h2 class="title">BibTeX</h2>
+        <button class="copy-bibtex-btn" onclick="copyBibTeX()" title="Copy BibTeX to clipboard">
+          <i class="fas fa-copy"></i>
+          <span class="copy-text">Copy</span>
+        </button>
+      </div>
+      <pre id="bibtex-code"><code>@article{YourPaperKey2024,
+  title={Reflect, Reason, Rephrase (R³-Detox): An In-Context Learning Approach to Text Detoxification},
+  author={Villate-Castillo, Guillermo and Del Ser, Javier and Sanz Urquijo, Borja},
+  journal={Big Data Computing, Applications and Technologies (BDCAT2025)},
+  year={2025},
+  url={https://your-domain.com/your-project-page}
+}</code></pre>
+    </div>
+</section>
+<!--End BibTex citation -->
+
+
+  <footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+
+          <p>
+            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+            You are free to borrow the source code of this website, we just ask that you link back to this page in the footer. <br> This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Statcounter tracking code -->
+  
+<!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
+
+    <!-- End of Statcounter Code -->
+
+    <!-- Examples navigation is handled by explorer.js -->
+  </body>
+  </html>
